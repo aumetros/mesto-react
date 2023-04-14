@@ -1,6 +1,6 @@
-function PopupWithForm({ title, name, children }) {
+function PopupWithForm({ title, name, children, isOpen }) {
   return (
-    <section className={`popup-${name} popup`}>
+    <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
       <div className={`popup-${name}__container`}>
         <form className="popup__form" name={name} noValidate>
           <h2 className="popup__title">{title}</h2>

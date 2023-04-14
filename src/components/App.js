@@ -1,3 +1,4 @@
+import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
@@ -5,19 +6,20 @@ import Main from "./Main";
 
 function App() {
 
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
   function handleEditAvatarClick() {
-    const popupEditAvatar = document.querySelector('.popup-edit-avatar');
-    popupEditAvatar.classList.add('popup_opened');
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
   function handleEditProfileClick() {
-   const popupEditProfile = document.querySelector('.popup-profile');
-   popupEditProfile.classList.add('popup_opened');
+   setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
-    const popupAddNewCard = document.querySelector('.popup-newcard');
-    popupAddNewCard.classList.add('popup_opened');
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
   return (
@@ -28,7 +30,7 @@ function App() {
 
       {/* Секция попапов */
       /* Попап редактирования профиля */}
-      <section className="popup-profile popup">
+      <section className={`popup-profile popup ${isEditProfilePopupOpen && "popup_opened"}`}>
         <div className="popup-profile__container">
           <form
             className="popup__form popup__form-profile-edit"
@@ -72,7 +74,7 @@ function App() {
       </section>
 
       {/* Попап добавления новой карточки */}
-      <section className="popup-newcard popup">
+      <section className= {`popup-newcard popup ${isAddPlacePopupOpen && "popup_opened"}`}>
         <div className="popup-newcard__container">
           <form
             className="popup__form popup-newcard__form-card-add"
@@ -145,7 +147,7 @@ function App() {
       </section>
 
       {/* Попап редактирования аватара пользователя */}
-      <section className="popup-edit-avatar popup">
+      <section className={`popup-edit-avatar popup ${isEditAvatarPopupOpen && "popup_opened"}`}>
         <div className="popup-edit-avatar__container">
           <form className="popup__form popup-edit-avatar__form">
             <h2 className="popup-edit-avatar__title">Обновить аватар</h2>
