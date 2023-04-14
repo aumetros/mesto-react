@@ -3,7 +3,7 @@
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
 
       <header className="header">
         <img
@@ -21,7 +21,7 @@ function App() {
           </div>
 
           <div className="profile__info">
-            <h1 className="profile__name"></h1>
+            <h1 className="profile__name">#</h1>
 
             <button className="profile__edit-button" type="button"></button>
 
@@ -155,7 +155,7 @@ function App() {
           <button className="popup__close" type="button"></button>
         </div>
       </section>
-      
+
       {/* Попап редактирования аватара пользователя */}
       <section className="popup-edit-avatar popup">
         <div className="popup-edit-avatar__container">
