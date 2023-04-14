@@ -1,19 +1,26 @@
 import React from "react";
 import { api } from "../utils/api.js";
+import Card from "./Card.js";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo()
-    .then((res) => {
+    api.getUserInfo().then((res) => {
       setUserName(res.name);
       setUserDescription(res.about);
       setUserAvatar(res.avatar);
-    })
-  })
+    });
+  }, []);
+
+  React.useEffect(() => {
+    api.getInitialCards().then((res) => {
+      setCards(res);
+    });
+  }, []);
 
   return (
     <main>
@@ -45,7 +52,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
         ></button>
       </section>
 
-      <ul className="elements">{/* Контейнер для карточек */}</ul>
+      <ul className="elements">
+        <Card card={cards[0]} />
+      </ul>
     </main>
   );
 }
