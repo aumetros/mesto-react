@@ -4,10 +4,26 @@ import Main from "./Main";
 
 
 function App() {
+
+  function handleEditAvatarClick() {
+    const popupEditAvatar = document.querySelector('.popup-edit-avatar');
+    popupEditAvatar.classList.add('popup_opened');
+  }
+
+  function handleEditProfileClick() {
+   const popupEditProfile = document.querySelector('.popup-profile');
+   popupEditProfile.classList.add('popup_opened');
+  }
+
+  function handleAddPlaceClick() {
+    const popupAddNewCard = document.querySelector('.popup-newcard');
+    popupAddNewCard.classList.add('popup_opened');
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
       <Footer />
 
       {/* Секция попапов */
