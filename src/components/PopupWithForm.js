@@ -1,4 +1,4 @@
-function PopupWithForm({ title, name, children, isOpen }) {
+function PopupWithForm({ title, name, children, isOpen, onClose }) {
   return (
     <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
       <div className={`popup-${name}__container`}>
@@ -13,7 +13,7 @@ function PopupWithForm({ title, name, children, isOpen }) {
           </button>
         </form>
 
-        <button className="popup__close" type="button"></button>
+        <button className="popup__close" type="button" onClick={onClose}></button>
       </div>
     </section>
   );
