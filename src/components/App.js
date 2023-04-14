@@ -17,7 +17,7 @@ function App() {
           <form
             className="popup__form popup__form-profile-edit"
             name="profile-edit"
-            novalidate
+            noValidate
           >
             <h2 className="popup-profile__title">Редактировать профиль</h2>
 
@@ -27,8 +27,8 @@ function App() {
               className="popup__input popup-profile__input popup-profile__input_type_name form-input"
               name="name"
               placeholder="Введите своё имя"
-              minlength="2"
-              maxlength="40"
+              minLength="2"
+              maxLength="40"
               required
             />
             <span className="popup__input popup__input_type_error name-input-error"></span>
@@ -39,8 +39,8 @@ function App() {
               className="popup__input popup-profile__input popup-profile__input_type_about form-input"
               name="about"
               placeholder="Напишите о себе"
-              minlength="2"
-              maxlength="200"
+              minLength="2"
+              maxLength="200"
               required
             />
             <span className="popup__input popup__input_type_error about-input-error"></span>
@@ -61,7 +61,7 @@ function App() {
           <form
             className="popup__form popup-newcard__form-card-add"
             name="card-add"
-            novalidate
+            noValidate
           >
             <h2 className="popup-newcard__title">Новое место</h2>
 
@@ -71,8 +71,8 @@ function App() {
               className="popup__input popup-newcard__input popup-newcard__input_type_name form-input"
               name="name"
               placeholder="Название"
-              minlength="2"
-              maxlength="30"
+              minLength="2"
+              maxLength="30"
               required
             />
             <span className="popup__input popup__input_type_error place-name-error"></span>
