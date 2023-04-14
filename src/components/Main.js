@@ -1,9 +1,19 @@
 import React from "react";
+import { api } from "../utils/api.js";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
+
+  React.useEffect(() => {
+    api.getUserInfo()
+    .then((res) => {
+      setUserName(res.name);
+      setUserDescription(res.about);
+      setUserAvatar(res.avatar);
+    })
+  })
 
   return (
     <main>
