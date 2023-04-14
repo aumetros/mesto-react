@@ -1,42 +1,14 @@
-// import logo from "./logo.svg";
-// import "./App.css";
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
+
 
 function App() {
   return (
     <div className="page">
-
-      <header className="header">
-        <img
-          src="<%=require('./images/mesto-logo.svg')%>"
-          className="header__logo"
-          alt="Логотип сайта Mesto Russia"
-        />
-        <div className="header__line"></div>
-      </header>
-
-      <main>
-        <section className="profile">
-          <div className="profile__avatar">
-            <div className="profile__avatar-overlay"></div>
-          </div>
-
-          <div className="profile__info">
-            <h1 className="profile__name">#</h1>
-
-            <button className="profile__edit-button" type="button"></button>
-
-            <p className="profile__about"></p>
-          </div>
-
-          <button className="profile__add-button" type="button"></button>
-        </section>
-
-        <ul className="elements">{/* Контейнер для карточек */}</ul>
-      </main>
-
-      <footer className="footer">
-        <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
 
       {/* Секция попапов */
       /* Попап редактирования профиля */}
