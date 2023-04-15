@@ -9,17 +9,27 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo().then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    });
+    api
+      .getUserInfo()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards().then((res) => {
-      setCards(res);
-    });
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -53,7 +63,30 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
       </section>
 
       <ul className="elements">
-        <Card card={cards[0]} />
+
+        {cards.map((card) => {
+        return (
+          <li className="element" key={card._id}>
+
+          <img className="element__foto" src={card.link} alt={card.name}/>
+      
+          <div className="element__description">
+            <p className="element__title">{card.name}</p>
+            <div className="element__like-container">
+              <button className="element__like-button" type="button"></button>
+              <span className="element__like-counter">{card.likes.length}</span>
+            </div>
+          </div>
+      
+          <button className="element__trash-button" type="button"></button>
+      
+        </li>
+        )  
+        
+        })}
+
+
+        
       </ul>
     </main>
   );

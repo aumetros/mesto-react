@@ -1,14 +1,14 @@
-function Card({card}) {
+function Card(props) {
   return (
     <li className="element">
 
-    <img className="element__foto" src={card.link} alt={card.name}/>
+    <img className="element__foto" src='#' alt='#'/>
 
     <div className="element__description">
-      <p className="element__title">{card.name}</p>
+      <p className="element__title"></p>
       <div className="element__like-container">
         <button className="element__like-button" type="button"></button>
-        <span className="element__like-counter">{card.likes.length}</span>
+        <span className="element__like-counter"></span>
       </div>
     </div>
 
