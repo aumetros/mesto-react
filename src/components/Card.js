@@ -1,21 +1,19 @@
-function Card(props) {
+function Card({card}) {
   return (
-    <li className="element">
+    <li className="element" key={card._id}>
+      <img className="element__foto" src={card.link} alt={card.name} />
 
-    <img className="element__foto" src='#' alt='#'/>
-
-    <div className="element__description">
-      <p className="element__title"></p>
-      <div className="element__like-container">
-        <button className="element__like-button" type="button"></button>
-        <span className="element__like-counter"></span>
+      <div className="element__description">
+        <p className="element__title">{card.name}</p>
+        <div className="element__like-container">
+          <button className="element__like-button" type="button"></button>
+          <span className="element__like-counter">{card.likes.length}</span>
+        </div>
       </div>
-    </div>
 
-    <button className="element__trash-button" type="button"></button>
-
-  </li>
-  )
+      <button className="element__trash-button" type="button"></button>
+    </li>
+  );
 }
 
 export default Card;
