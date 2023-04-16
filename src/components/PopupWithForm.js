@@ -1,4 +1,4 @@
-function PopupWithForm({ title, name, children, isOpen, onClose }) {
+function PopupWithForm({ title, name, isOpen, onClose, isDisabled, children }) {
   return (
     <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
       <div className={`popup-${name}__container`}>
@@ -7,13 +7,23 @@ function PopupWithForm({ title, name, children, isOpen, onClose }) {
 
           {children}
 
-          <button className="popup__button" type="submit">
+          <button
+            className={`popup__button ${
+              isDisabled && "popup__button_disabled"
+            }`}
+            type="submit"
+            disabled={isDisabled}
+          >
             <span className="popup__button-text">Сохранить</span>
             <span className="popup__button-spinner">Сохранение...</span>
           </button>
         </form>
 
-        <button className="popup__close" type="button" onClick={onClose}></button>
+        <button
+          className="popup__close"
+          type="button"
+          onClick={onClose}
+        ></button>
       </div>
     </section>
   );

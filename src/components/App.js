@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import ImagePopup from "./ImagePopup";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -42,28 +43,20 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-        onClose={closeAllPopups}
         onCardClick={handleCardClick}
       />
       <Footer />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-      {/* Секция попапов */
-      /* Попап редактирования профиля */}
-      <section
-        className={`popup-profile popup ${
-          isEditProfilePopupOpen && "popup_opened"
-        }`}
-      >
-        <div className="popup-profile__container">
-          <form
-            className="popup__form popup__form-profile-edit"
-            name="profile-edit"
-            noValidate
-          >
-            <h2 className="popup-profile__title">Редактировать профиль</h2>
-
+      <PopupWithForm
+        title="Редактировать профиль"
+        name="profile"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        isDisabled={false}
+        children={
+          <>
             <input
               type="text"
               id="name-input"
@@ -75,7 +68,6 @@ function App() {
               required
             />
             <span className="popup__input popup__input_type_error name-input-error"></span>
-
             <input
               type="text"
               id="about-input"
@@ -87,35 +79,18 @@ function App() {
               required
             />
             <span className="popup__input popup__input_type_error about-input-error"></span>
+          </>
+        }
+      />
 
-            <button className="popup__button" type="submit">
-              <span className="popup__button-text">Сохранить</span>
-              <span className="popup__button-spinner">Сохранение...</span>
-            </button>
-          </form>
-
-          <button
-            className="popup__close"
-            type="button"
-            onClick={closeAllPopups}
-          ></button>
-        </div>
-      </section>
-
-      {/* Попап добавления новой карточки */}
-      <section
-        className={`popup-newcard popup ${
-          isAddPlacePopupOpen && "popup_opened"
-        }`}
-      >
-        <div className="popup-newcard__container">
-          <form
-            className="popup__form popup-newcard__form-card-add"
-            name="card-add"
-            noValidate
-          >
-            <h2 className="popup-newcard__title">Новое место</h2>
-
+      <PopupWithForm
+        title="Новое место"
+        name="newcard"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        isDisabled={true}
+        children={
+          <>
             <input
               type="text"
               id="place-name"
@@ -127,7 +102,6 @@ function App() {
               required
             />
             <span className="popup__input popup__input_type_error place-name-error"></span>
-
             <input
               type="url"
               id="link"
@@ -137,24 +111,29 @@ function App() {
               required
             />
             <span className="popup__input popup__input_type_error link-error"></span>
+          </>
+        }
+      />
 
-            <button
-              className="popup__button popup__button_disabled popup__new-card-button"
-              type="submit"
-              disabled
-            >
-              <span className="popup__button-text">Сохранить</span>
-              <span className="popup__button-spinner">Сохранение...</span>
-            </button>
-          </form>
+      <PopupWithForm
+        title="Обновить аватар"
+        name="edit-avatar"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        isDisabled={true}
+        children={<>
+        <input
+              type="url"
+              id="avatar-link"
+              className="popup__input popup-edit-avatar__input form-input"
+              name="link"
+              placeholder="Введите cсылку на новый аватар"
+              required
+            />
 
-          <button
-            className="popup__close"
-            type="button"
-            onClick={closeAllPopups}
-          ></button>
-        </div>
-      </section>
+            <span className="popup__input popup__input_type_error avatar-link-error"></span>
+        </>}
+      />
 
       {/* Попап подтверждения удаления карточки */}
       <section className="popup-confirm-delete popup">
@@ -170,45 +149,6 @@ function App() {
           </form>
 
           <button className="popup__close" type="button"></button>
-        </div>
-      </section>
-
-      {/* Попап редактирования аватара пользователя */}
-      <section
-        className={`popup-edit-avatar popup ${
-          isEditAvatarPopupOpen && "popup_opened"
-        }`}
-      >
-        <div className="popup-edit-avatar__container">
-          <form className="popup__form popup-edit-avatar__form">
-            <h2 className="popup-edit-avatar__title">Обновить аватар</h2>
-
-            <input
-              type="url"
-              id="avatar-link"
-              className="popup__input popup-edit-avatar__input form-input"
-              name="link"
-              placeholder="Введите cсылку на новый аватар"
-              required
-            />
-
-            <span className="popup__input popup__input_type_error avatar-link-error"></span>
-
-            <button
-              className="popup__button popup__button_disabled popup-edit-avatar__button"
-              type="submit"
-              disabled
-            >
-              <span className="popup__button-text">Сохранить</span>
-              <span className="popup__button-spinner">Сохранение...</span>
-            </button>
-          </form>
-
-          <button
-            className="popup__close"
-            type="button"
-            onClick={closeAllPopups}
-          ></button>
         </div>
       </section>
     </div>

@@ -16,7 +16,7 @@ function Card({card, onCardClick}) {
         </div>
       </div>
 
-      <button className="element__trash-button" type="button"></button>
+      <button className="element__trash-button element__trash-button_showed" type="button"></button>
     </li>
   );
 }
