@@ -1,12 +1,16 @@
-function Card({card, onCardClick}) {
-
+function Card({ card, onCardClick, onDeleteClick }) {
   function handleClick() {
     onCardClick(card);
   }
 
   return (
     <li className="element">
-      <img className="element__foto" src={card.link} alt={card.name} onClick={handleClick} />
+      <img
+        className="element__foto"
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
+      />
 
       <div className="element__description">
         <p className="element__title">{card.name}</p>
@@ -16,7 +20,11 @@ function Card({card, onCardClick}) {
         </div>
       </div>
 
-      <button className="element__trash-button element__trash-button_showed" type="button"></button>
+      <button
+        className="element__trash-button element__trash-button_showed"
+        type="button"
+        onClick={onDeleteClick}
+      ></button>
     </li>
   );
 }

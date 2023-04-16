@@ -11,6 +11,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
+    React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
 
   function handleEditAvatarClick() {
@@ -25,6 +27,10 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  function handleDeleteClick() {
+    setIsConfirmDeletePopupOpen(!isConfirmDeletePopupOpen);
+  }
+
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -33,6 +39,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsConfirmDeletePopupOpen(false);
     setSelectedCard(false);
   }
 
@@ -44,6 +51,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
+        onDeleteClick={handleDeleteClick}
       />
       <Footer />
 
@@ -121,8 +129,9 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         isDisabled={true}
-        children={<>
-        <input
+        children={
+          <>
+            <input
               type="url"
               id="avatar-link"
               className="popup__input popup-edit-avatar__input form-input"
@@ -132,25 +141,18 @@ function App() {
             />
 
             <span className="popup__input popup__input_type_error avatar-link-error"></span>
-        </>}
+          </>
+        }
       />
 
-      {/* Попап подтверждения удаления карточки */}
-      <section className="popup-confirm-delete popup">
-        <div className="popup-confirm-delete__container">
-          <form className="popup__form popup-confirm-delete__form">
-            <h2 className="popup-confirm-delete__title">Вы уверены?</h2>
-            <button
-              className="popup__button popup__confirm-delete-button"
-              type="submit"
-            >
-              Да
-            </button>
-          </form>
-
-          <button className="popup__close" type="button"></button>
-        </div>
-      </section>
+      <PopupWithForm
+        title="Вы уверены?"
+        name="confirm-delete"
+        isOpen={isConfirmDeletePopupOpen}
+        onClose={closeAllPopups}
+        isDisabled={false}
+        children={""}
+      />
     </div>
   );
 }
