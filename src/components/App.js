@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -9,7 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -23,10 +24,15 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -37,8 +43,11 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onClose={closeAllPopups}
+        onCardClick={handleCardClick}
       />
       <Footer />
+
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       {/* Секция попапов */
       /* Попап редактирования профиля */}
@@ -85,7 +94,11 @@ function App() {
             </button>
           </form>
 
-          <button className="popup__close" type="button" onClick={closeAllPopups}></button>
+          <button
+            className="popup__close"
+            type="button"
+            onClick={closeAllPopups}
+          ></button>
         </div>
       </section>
 
@@ -135,17 +148,11 @@ function App() {
             </button>
           </form>
 
-          <button className="popup__close" type="button" onClick={closeAllPopups}></button>
-        </div>
-      </section>
-
-      {/* Попап просмотра фотографии */}
-      <section className="popup-image popup popup_type_image">
-        <div className="popup-image__container">
-          <img className="popup-image__item" src="#" alt="#" />
-          <p className="popup-image__subtitle"></p>
-
-          <button className="popup__close" type="button"></button>
+          <button
+            className="popup__close"
+            type="button"
+            onClick={closeAllPopups}
+          ></button>
         </div>
       </section>
 
@@ -197,7 +204,11 @@ function App() {
             </button>
           </form>
 
-          <button className="popup__close" type="button" onClick={closeAllPopups}></button>
+          <button
+            className="popup__close"
+            type="button"
+            onClick={closeAllPopups}
+          ></button>
         </div>
       </section>
     </div>

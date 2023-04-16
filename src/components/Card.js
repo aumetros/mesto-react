@@ -1,7 +1,12 @@
-function Card({card}) {
+function Card({card, onCardClick}) {
+
+  function handleClick() {
+    onCardClick(card);
+  }
+
   return (
-    <li className="element" key={card._id}>
-      <img className="element__foto" src={card.link} alt={card.name} />
+    <li className="element">
+      <img className="element__foto" src={card.link} alt={card.name} onClick={handleClick} />
 
       <div className="element__description">
         <p className="element__title">{card.name}</p>

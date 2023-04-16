@@ -1,11 +1,12 @@
-function ImagePopup() {
-  return (
-    <section className="popup-image popup popup_type_image">
-      <div className="popup-image__container">
-        <img className="popup-image__item" src="#" alt="#" />
-        <p className="popup-image__subtitle"></p>
+function ImagePopup({card, onClose}) {
 
-        <button className="popup__close" type="button"></button>
+  return (
+    <section className={`popup-image popup popup_type_image ${card && 'popup_opened'}`}>
+      <div className="popup-image__container">
+        <img className="popup-image__item" src={card.link} alt={card.name} />
+        <p className="popup-image__subtitle">{card.name}</p>
+
+        <button className="popup__close" type="button" onClick={onClose}></button>
       </div>
     </section>
   );
