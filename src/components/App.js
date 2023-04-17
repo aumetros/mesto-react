@@ -61,6 +61,8 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         isDisabled={false}
+        textButton='Сохранить'
+        textSpinner='Сохранение...'
       >
         <input
           type="text"
@@ -91,6 +93,8 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         isDisabled={true}
+        textButton='Сохранить'
+        textSpinner='Сохранение...'
       >
         <input
           type="text"
@@ -119,6 +123,8 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         isDisabled={true}
+        textButton='Сохранить'
+        textSpinner='Сохранение...'
       >
         <input
           type="url"
@@ -136,6 +142,8 @@ function App() {
         isOpen={isConfirmDeletePopupOpen}
         onClose={closeAllPopups}
         isDisabled={false}
+        textButton='Удалить'
+        textSpinner='Удаление...'
       />
     </div>
   );
