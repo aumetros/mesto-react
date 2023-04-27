@@ -4,6 +4,7 @@ import Header from "./Header";
 import Main from "./Main";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
+import { api } from "../utils/api";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -14,6 +15,18 @@ function App() {
   const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -136,8 +149,8 @@ function App() {
         isOpen={isConfirmDeletePopupOpen}
         onClose={closeAllPopups}
         isDisabled={false}
-        textButton='Удалить'
-        textSpinner='Удаление...'
+        textButton="Удалить"
+        textSpinner="Удаление..."
       />
     </div>
   );
