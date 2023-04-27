@@ -1,5 +1,4 @@
 import React from "react";
-import { api } from "../utils/api.js";
 import Card from "./Card.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -9,21 +8,10 @@ function Main({
   onAddPlace,
   onCardClick,
   onDeleteClick,
+  onCardLike,
+  initialCards,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <main>
@@ -56,13 +44,14 @@ function Main({
       </section>
 
       <ul className="elements">
-        {cards.map((card) => {
+        {initialCards.map((card) => {
           return (
             <Card
               key={card._id}
               card={card}
               onCardClick={onCardClick}
               onDeleteClick={onDeleteClick}
+              onCardLike={onCardLike}
             />
           );
         })}

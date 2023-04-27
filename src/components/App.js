@@ -17,12 +17,13 @@ function App() {
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res[0]);
+        setCards(res[1]);
       })
       .catch((err) => {
         console.log(err);
@@ -57,6 +58,21 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -67,6 +83,8 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
           onDeleteClick={handleDeleteClick}
+          onCardLike={handleCardLike}
+          initialCards={cards}
         />
         <Footer />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />

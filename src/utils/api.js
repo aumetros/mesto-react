@@ -65,7 +65,7 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  putLike(cardId) {
+  _putLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
@@ -75,7 +75,7 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  deleteLike(cardId) {
+  _deleteLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: {
@@ -83,6 +83,14 @@ class Api {
         "Content-Type": "application/json",
       },
     }).then((res) => this._checkResponse(res));
+  }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    if (!isLiked) {
+      return this._putLike(cardId);
+    } else {
+      return this._deleteLike(cardId);
+    }
   }
 
   editAvatar(avatarLink) {
