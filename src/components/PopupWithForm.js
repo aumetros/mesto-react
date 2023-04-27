@@ -23,8 +23,8 @@ function PopupWithForm({
             type="submit"
             disabled={isDisabled}
           >
-            <span className="popup__button-text">{textButton}</span>
-            <span className="popup__button-spinner">{textSpinner}</span>
+            <span className="popup__button-text">{textButton || 'Сохранить'}</span>
+            <span className="popup__button-spinner">{textSpinner || 'Сохранение...'}</span>
           </button>
         </form>
 
