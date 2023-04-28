@@ -7,6 +7,7 @@ import PopupWithForm from "./PopupWithForm";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -96,6 +97,18 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(avatarLink) {
+    api
+      .editAvatar(avatarLink)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -111,13 +124,19 @@ function App() {
           initialCards={cards}
         />
         <Footer />
-        
+
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+        />
+
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         <PopupWithForm
@@ -148,23 +167,7 @@ function App() {
           />
           <span className="popup__input popup__input_type_error link-error"></span>
         </PopupWithForm>
-        <PopupWithForm
-          title="Обновить аватар"
-          name="edit-avatar"
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          isDisabled={true}
-        >
-          <input
-            type="url"
-            id="avatar-link"
-            className="popup__input popup-edit-avatar__input form-input"
-            name="link"
-            placeholder="Введите cсылку на новый аватар"
-            required
-          />
-          <span className="popup__input popup__input_type_error avatar-link-error"></span>
-        </PopupWithForm>
+
         <PopupWithForm
           title="Вы уверены?"
           name="confirm-delete"
