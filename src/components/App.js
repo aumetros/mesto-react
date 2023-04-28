@@ -84,6 +84,18 @@ function App() {
       });
   }
 
+  function handleUpdateUser(data) {
+    api
+      .editProfile(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -99,10 +111,14 @@ function App() {
           initialCards={cards}
         />
         <Footer />
+        
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />        
-
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
 
         <PopupWithForm
           title="Новое место"
