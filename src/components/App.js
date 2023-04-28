@@ -135,8 +135,8 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
         <Header />
         <Main
           onEditAvatar={handleEditAvatarClick}
@@ -178,8 +178,8 @@ function App() {
           onConfirmDelete={handleCardDelete}
           isLoading={isLoading}
         />
-      </CurrentUserContext.Provider>
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
