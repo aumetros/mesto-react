@@ -17,10 +17,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
     e.preventDefault();
     onAddPlace({
       name: placeName,
-      link: placeLink
+      link: placeLink,
     });
-    setPlaceName('');
-    setPlaceLink('');
+    setPlaceName("");
+    setPlaceLink("");
   }
 
   return (

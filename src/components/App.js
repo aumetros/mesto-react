@@ -3,12 +3,12 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import ImagePopup from "./ImagePopup";
-import PopupWithForm from "./PopupWithForm";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -22,6 +22,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [cardToDelete, setCardToDelete] = React.useState({});
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -46,8 +47,9 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(card) {
     setIsConfirmDeletePopupOpen(!isConfirmDeletePopupOpen);
+    setCardToDelete(card);
   }
 
   function handleCardClick(card) {
@@ -76,11 +78,14 @@ function App() {
       });
   }
 
-  function handleCardDelete(card) {
+  function handleCardDelete() {
+    setIsLoading(true);
     api
-      .deleteCard(card._id)
+      .deleteCard(cardToDelete._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c._id !== cardToDelete._id));
+        closeAllPopups();
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -140,7 +145,6 @@ function App() {
           onCardClick={handleCardClick}
           onDeleteClick={handleDeleteClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
           initialCards={cards}
         />
         <Footer />
@@ -168,14 +172,11 @@ function App() {
           isLoading={isLoading}
         />
 
-        <PopupWithForm
-          title="Вы уверены?"
-          name="confirm-delete"
+        <ConfirmDeletePopup
           isOpen={isConfirmDeletePopupOpen}
           onClose={closeAllPopups}
-          isDisabled={false}
-          textButton="Удалить"
-          textSpinner="Удаление..."
+          onConfirmDelete={handleCardDelete}
+          isLoading={isLoading}
         />
       </CurrentUserContext.Provider>
     </div>
