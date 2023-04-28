@@ -12,7 +12,7 @@ function PopupWithForm({
   return (
     <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
       <div className={`popup__container`}>
-        <form className="popup__form" name={name} onSubmit={onSubmit} noValidate>
+        <form className="popup__form" name={name} onSubmit={onSubmit}>
           <h2 className="popup__title">{title}</h2>
 
           {children}
