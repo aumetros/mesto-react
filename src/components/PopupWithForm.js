@@ -7,8 +7,17 @@ function PopupWithForm({
   children,
   textButton,
   textSpinner,
-  onSubmit
+  onSubmit,
+  isLoading,
 }) {
+  const buttonTextClassName = `popup__button-text ${
+    isLoading ? "popup__button-text_hidden" : ""
+  }`;
+
+  const buttonSpinnerClassName = `popup__button-spinner ${
+    isLoading ? "popup__button-spinner_visible" : ""
+  }`;
+
   return (
     <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
       <div className={`popup__container`}>
@@ -24,8 +33,12 @@ function PopupWithForm({
             type="submit"
             disabled={isDisabled}
           >
-            <span className="popup__button-text">{textButton || 'Сохранить'}</span>
-            <span className="popup__button-spinner">{textSpinner || 'Сохранение...'}</span>
+            <span className={buttonTextClassName}>
+              {textButton || "Сохранить"}
+            </span>
+            <span className={buttonSpinnerClassName}>
+              {textSpinner || "Сохранение..."}
+            </span>
           </button>
         </form>
 
