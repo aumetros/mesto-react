@@ -1,6 +1,25 @@
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({isOpen, onClose}) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+  const [placeName, setPlaceName] = React.useState(" ");
+  const [placeLink, setPlaceLink] = React.useState(" ");
+
+  function handlePlaceNameInputChange(e) {
+    setPlaceName(e.target.value);
+  }
+
+  function handlePlaceLinkInputChange(e) {
+    setPlaceLink(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddPlace({
+      name: placeName,
+      link: placeLink
+    });
+  }
 
   return (
     <PopupWithForm
@@ -9,6 +28,7 @@ function AddPlacePopup({isOpen, onClose}) {
       isOpen={isOpen}
       onClose={onClose}
       isDisabled={false}
+      onSubmit={handleSubmit}
     >
       <input
         type="text"
@@ -19,6 +39,8 @@ function AddPlacePopup({isOpen, onClose}) {
         minLength="2"
         maxLength="30"
         required
+        value={placeName}
+        onChange={handlePlaceNameInputChange}
       />
       <span className="popup__input popup__input_type_error place-name-error"></span>
       <input
@@ -28,6 +50,8 @@ function AddPlacePopup({isOpen, onClose}) {
         name="link"
         placeholder="Ссылка на картинку"
         required
+        value={placeLink}
+        onChange={handlePlaceLinkInputChange}
       />
       <span className="popup__input popup__input_type_error link-error"></span>
     </PopupWithForm>
