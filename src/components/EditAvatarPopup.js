@@ -16,13 +16,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
         onClose();
       }
     }
-
     if (isOpen) {
       document.addEventListener("keydown", handleEscClose);
-    } else {
-      document.removeEventListener("keydown", handleEscClose);
+      return () => document.removeEventListener("keydown", handleEscClose);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   return (
     <PopupWithForm
