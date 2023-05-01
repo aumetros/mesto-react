@@ -10,6 +10,20 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
     avatarRef.current.value = "";
   }
 
+  React.useEffect(() => {
+    function handleEscClose(evt) {
+      if (evt.key === "Escape") {
+        onClose();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscClose);
+    } else {
+      document.removeEventListener("keydown", handleEscClose);
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       title="Обновить аватар"

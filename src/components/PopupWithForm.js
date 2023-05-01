@@ -1,3 +1,5 @@
+import React from "react";
+
 function PopupWithForm({
   title,
   name,
@@ -17,6 +19,7 @@ function PopupWithForm({
   const buttonSpinnerClassName = `popup__button-spinner ${
     isLoading ? "popup__button-spinner_visible" : ""
   }`;
+
 
   return (
     <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
