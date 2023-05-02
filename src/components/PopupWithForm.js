@@ -20,9 +20,11 @@ function PopupWithForm({
     isLoading ? "popup__button-spinner_visible" : ""
   }`;
 
-
   return (
-    <section className={`popup-${name} popup ${isOpen && "popup_opened"}`}>
+    <section
+      className={`popup-${name} popup ${isOpen && "popup_opened"}`}
+      onClick={onClose}
+    >
       <div className={`popup__container`}>
         <form className="popup__form" name={name} onSubmit={onSubmit}>
           <h2 className="popup__title">{title}</h2>
@@ -45,11 +47,7 @@ function PopupWithForm({
           </button>
         </form>
 
-        <button
-          className="popup__close"
-          type="button"
-          onClick={onClose}
-        ></button>
+        <button className="popup__close" type="button"></button>
       </div>
     </section>
   );

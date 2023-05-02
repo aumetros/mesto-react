@@ -1,6 +1,6 @@
 import React from "react";
 
-function ImagePopup({card, onClose, onEsc}) {
+function ImagePopup({card, onEsc, onClose}) {
 
   React.useEffect(() => {
     if (Object.keys(card).length) {
@@ -10,12 +10,12 @@ function ImagePopup({card, onClose, onEsc}) {
   });
 
   return (
-    <section className={`popup-image popup popup_type_image ${Object.keys(card).length && 'popup_opened'}`}>
+    <section className={`popup ${Object.keys(card).length && 'popup_opened'}`} onClick={onClose}>
       <div className="popup-image__container">
         <img className="popup-image__item" src={card.link} alt={card.name} />
         <p className="popup-image__subtitle">{card.name}</p>
 
-        <button className="popup__close" type="button" onClick={onClose}></button>
+        <button className="popup__close" type="button"></button>
       </div>
     </section>
   );

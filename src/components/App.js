@@ -70,6 +70,17 @@ function App() {
     }
   }
 
+  function handleClosePopup(e) {
+    const closeClassNames = ["popup_opened", "popup__close"];
+    if (
+      closeClassNames.some((className) =>
+        e.target.classList.contains(className)
+      )
+    ) {
+      closeAllPopups();
+    }
+  }
+
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     api
@@ -157,13 +168,13 @@ function App() {
 
         <ImagePopup
           card={selectedCard}
-          onClose={closeAllPopups}
           onEsc={handleEscClose}
+          onClose={handleClosePopup}
         />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
+          onClose={handleClosePopup}
           onUpdateUser={handleUpdateUser}
           isLoading={isLoading}
           onEsc={handleEscClose}
@@ -171,7 +182,7 @@ function App() {
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
+          onClose={handleClosePopup}
           onUpdateAvatar={handleUpdateAvatar}
           isLoading={isLoading}
           onEsc={handleEscClose}
@@ -179,7 +190,7 @@ function App() {
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
+          onClose={handleClosePopup}
           onAddPlace={handleAddPlaceSubmit}
           isLoading={isLoading}
           onEsc={handleEscClose}
@@ -187,7 +198,7 @@ function App() {
 
         <ConfirmDeletePopup
           isOpen={isConfirmDeletePopupOpen}
-          onClose={closeAllPopups}
+          onClose={handleClosePopup}
           onConfirmDelete={handleCardDelete}
           isLoading={isLoading}
           onEsc={handleEscClose}
