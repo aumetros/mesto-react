@@ -11,6 +11,7 @@ function PopupWithForm({
   textSpinner,
   onSubmit,
   isLoading,
+  onEsc
 }) {
   const buttonTextClassName = `popup__button-text ${
     isLoading ? "popup__button-text_hidden" : ""
@@ -19,6 +20,13 @@ function PopupWithForm({
   const buttonSpinnerClassName = `popup__button-spinner ${
     isLoading ? "popup__button-spinner_visible" : ""
   }`;
+
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
+    }
+  }, [isOpen, onEsc]);
 
   return (
     <section

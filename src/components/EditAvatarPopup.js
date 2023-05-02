@@ -16,13 +16,6 @@ function EditAvatarPopup({
     avatarRef.current.value = "";
   }
 
-  React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", onEsc);
-      return () => document.removeEventListener("keydown", onEsc);
-    }
-  }, [isOpen, onEsc]);
-
   return (
     <PopupWithForm
       title="Обновить аватар"
@@ -32,6 +25,7 @@ function EditAvatarPopup({
       isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      onEsc={onEsc}
     >
       <input
         type="url"

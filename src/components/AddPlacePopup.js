@@ -26,13 +26,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     setPlaceLink("");
   }, [isOpen]);
 
-  React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", onEsc);
-      return () => document.removeEventListener("keydown", onEsc);
-    }
-  }, [isOpen, onEsc]);
-
   return (
     <PopupWithForm
       title="Новое место"
@@ -42,6 +35,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      onEsc={onEsc}
     >
       <input
         type="text"

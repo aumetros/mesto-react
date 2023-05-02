@@ -26,14 +26,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser, isOpen]);
-
-  React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", onEsc);
-      return () => document.removeEventListener("keydown", onEsc);
-    }
-  }, [isOpen, onEsc]);
+  }, [currentUser, isOpen]); 
 
   return (
     <PopupWithForm
@@ -44,6 +37,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
       isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      onEsc={onEsc}
     >
       <input
         type="text"

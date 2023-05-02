@@ -7,13 +7,6 @@ function ConfirmDeletePopup({ isOpen, onClose, onConfirmDelete, isLoading, onEsc
     onConfirmDelete();
   }
 
-  React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", onEsc);
-      return () => document.removeEventListener("keydown", onEsc);
-    }
-  }, [isOpen, onEsc]);
-
   return (
     <PopupWithForm
       title="Вы уверены?"
@@ -25,6 +18,7 @@ function ConfirmDeletePopup({ isOpen, onClose, onConfirmDelete, isLoading, onEsc
       onSubmit={handleSubmit}
       textButton="Удалить"
       textSpinner="Удаление..."
+      onEsc={onEsc}
     />
   );
 }
