@@ -64,7 +64,11 @@ function App() {
     setSelectedCard({});
   }
 
- 
+  function handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      closeAllPopups();
+    }
+  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -165,6 +169,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isLoading={isLoading}
+          onEsc={handleEscClose}
         />
 
         <AddPlacePopup

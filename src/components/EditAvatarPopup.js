@@ -1,7 +1,13 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
+function EditAvatarPopup({
+  isOpen,
+  onClose,
+  onUpdateAvatar,
+  isLoading,
+  onEsc,
+}) {
   const avatarRef = React.useRef();
 
   function handleSubmit(e) {
@@ -11,16 +17,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
   }
 
   React.useEffect(() => {
-    function handleEscClose(evt) {
-      if (evt.key === "Escape") {
-        onClose();
-      }
-    }
     if (isOpen) {
-      document.addEventListener("keydown", handleEscClose);
-      return () => document.removeEventListener("keydown", handleEscClose);
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
     }
-  }, [isOpen, onClose]);
+  }, [isOpen, onEsc]);
 
   return (
     <PopupWithForm
