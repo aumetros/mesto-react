@@ -1,10 +1,18 @@
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function ConfirmDeletePopup({ isOpen, onClose, onConfirmDelete, isLoading }) {
+function ConfirmDeletePopup({ isOpen, onClose, onConfirmDelete, isLoading, onEsc }) {
   function handleSubmit(e) {
     e.preventDefault();
     onConfirmDelete();
   }
+
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
+    }
+  }, [isOpen, onEsc]);
 
   return (
     <PopupWithForm

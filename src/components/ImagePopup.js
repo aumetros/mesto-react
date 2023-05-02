@@ -1,4 +1,13 @@
-function ImagePopup({card, onClose}) {
+import React from "react";
+
+function ImagePopup({card, onClose, onEsc}) {
+
+  React.useEffect(() => {
+    if (Object.keys(card).length) {
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
+    }
+  });
 
   return (
     <section className={`popup-image popup popup_type_image ${Object.keys(card).length && 'popup_opened'}`}>

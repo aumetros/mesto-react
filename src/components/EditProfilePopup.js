@@ -2,7 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const currentUser = React.useContext(CurrentUserContext);
@@ -27,6 +27,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser, isOpen]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
+    }
+  }, [isOpen, onEsc]);
 
   return (
     <PopupWithForm

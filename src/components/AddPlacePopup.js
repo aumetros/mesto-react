@@ -1,7 +1,7 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const [placeName, setPlaceName] = React.useState("");
   const [placeLink, setPlaceLink] = React.useState("");
 
@@ -25,6 +25,13 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
     setPlaceName("");
     setPlaceLink("");
   }, [isOpen]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("keydown", onEsc);
+      return () => document.removeEventListener("keydown", onEsc);
+    }
+  }, [isOpen, onEsc]);
 
   return (
     <PopupWithForm

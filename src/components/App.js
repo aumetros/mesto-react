@@ -155,13 +155,18 @@ function App() {
         />
         <Footer />
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+          onEsc={handleEscClose}
+        />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
           isLoading={isLoading}
+          onEsc={handleEscClose}
         />
 
         <EditAvatarPopup
@@ -177,6 +182,7 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isLoading={isLoading}
+          onEsc={handleEscClose}
         />
 
         <ConfirmDeletePopup
@@ -184,6 +190,7 @@ function App() {
           onClose={closeAllPopups}
           onConfirmDelete={handleCardDelete}
           isLoading={isLoading}
+          onEsc={handleEscClose}
         />
       </div>
     </CurrentUserContext.Provider>
