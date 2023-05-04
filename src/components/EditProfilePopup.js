@@ -8,6 +8,15 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
 
   const { values, handleChange, setValues } = useForm();
 
+  const [formValidity, setFormValidity] = React.useState({
+    userNameValid: false,
+    userAboutValid: false,
+  });
+
+  const {userNameValid, userAboutValid} = formValidity;
+
+  // const isFormValid = !userNameValid || !userAboutValid;
+
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({
@@ -18,13 +27,23 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
 
   React.useEffect(() => {
     setValues({
-      name: currentUser.name,
-      about: currentUser.about,
+      name: currentUser.name || "",
+      about: currentUser.about || "",
     });
   }, [currentUser, isOpen, setValues]);
 
-  console.log(values)
+  React.useEffect(() => {
+    const isUsernameFilled = values.name.length > 0;
+    const isUserAboutFilled = values.about.length > 0;
 
+    setFormValidity({
+      userNameValid: isUsernameFilled,
+      userAboutValid: isUserAboutFilled,
+    });
+    console.log(isUsernameFilled, isUserAboutFilled);
+  }, [values, setFormValidity]);
+
+ 
   return (
     <PopupWithForm
       title="Редактировать профиль"
@@ -48,7 +67,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
         value={values.name || ""}
         onChange={handleChange}
       />
-      <span className="popup__input popup__input_type_error name-input-error"></span>
+      <span className="popup__input popup__input_type_error name-input-error">
+        {!userNameValid && 'Это поле не валидно!'}
+      </span>
       <input
         type="text"
         id="about-input"
@@ -61,7 +82,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
         value={values.about || ""}
         onChange={handleChange}
       />
-      <span className="popup__input popup__input_type_error about-input-error"></span>
+      <span className="popup__input popup__input_type_error about-input-error">
+      {!userAboutValid && 'Это поле не валидно!'}
+      </span>
     </PopupWithForm>
   );
 }
