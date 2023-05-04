@@ -23,6 +23,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
     });
   }, [currentUser, isOpen, setValues]);
 
+  console.log(values)
+
   return (
     <PopupWithForm
       title="Редактировать профиль"
