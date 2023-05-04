@@ -2,31 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "../hooks/useForm";
-
-const validators = {
-  name: {
-    required: (value) => {
-      return value === "";
-    },
-    minLenght: (value) => {
-      return value.length < 2;
-    },
-    maxLength: (value) => {
-      return value.length > 200;
-    },
-  },
-  about: {
-    required: (value) => {
-      return value === "";
-    },
-    minLenght: (value) => {
-      return value.length < 2;
-    },
-    maxLength: (value) => {
-      return value.length > 200;
-    },
-  },
-};
+import { validators } from "../utils/validators";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -48,7 +24,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
 
   const isUserNameInvalid = Object.values(errors.name).some(Boolean);
   const isUserAboutInvalid = Object.values(errors.about).some(Boolean);
-  const isFormValid = !isUserNameInvalid && !isUserAboutInvalid;
+  const isFormInvalid = isUserNameInvalid || isUserAboutInvalid;
 
   const userNameErrorClassName = `popup__input popup__input_type_error ${
     isUserNameInvalid && "popup__error_visible"
@@ -102,11 +78,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
       name="profile"
       isOpen={isOpen}
       onClose={onClose}
-      isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       onEsc={onEsc}
-      isValid={isFormValid}
+      isInvalid={isFormInvalid}
     >
       <input
         type="text"

@@ -5,13 +5,13 @@ function PopupWithForm({
   name,
   isOpen,
   onClose,
-  isDisabled,
   children,
   textButton,
   textSpinner,
   onSubmit,
   isLoading,
-  onEsc
+  onEsc,
+  isInvalid,
 }) {
   const buttonTextClassName = `popup__button-text ${
     isLoading ? "popup__button-text_hidden" : ""
@@ -34,17 +34,20 @@ function PopupWithForm({
       onClick={onClose}
     >
       <div className={`popup__container`}>
-        <form className="popup__form" name={name} onSubmit={onSubmit}>
+        <form
+          className="popup__form"
+          name={name}
+          onSubmit={onSubmit}
+          noValidate
+        >
           <h2 className="popup__title">{title}</h2>
 
           {children}
 
           <button
-            className={`popup__button ${
-              isDisabled && "popup__button_disabled"
-            }`}
+            className={`popup__button ${isInvalid && "popup__button_disabled"}`}
             type="submit"
-            disabled={isDisabled}
+            disabled={isInvalid}
           >
             <span className={buttonTextClassName}>
               {textButton || "Сохранить"}
