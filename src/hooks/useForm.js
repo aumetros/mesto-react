@@ -1,14 +1,18 @@
 import React from "react";
 
-export function useForm(inputValues={
-  name: '',
-  about: ''
-}) {
+export function useForm(
+  inputValues = {
+    name: "",
+    about: "",
+    placeName: "",
+    placeLink: "",
+  }
+) {
   const [values, setValues] = React.useState(inputValues);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    setValues(prevState => ({ ...prevState, [name]: value }));
+    setValues((prevState) => ({ ...prevState, [name]: value }));
   };
 
   return { values, handleChange, setValues };

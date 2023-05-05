@@ -1,30 +1,43 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useForm } from "../hooks/useForm";
+import { validators } from "../utils/validators";
+import { useFormErrors } from "../hooks/useFormErrors";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
-  const [placeName, setPlaceName] = React.useState("");
-  const [placeLink, setPlaceLink] = React.useState("");
 
-  function handlePlaceNameInputChange(e) {
-    setPlaceName(e.target.value);
-  }
+  const { values, handleChange, setValues } = useForm();
+  const { errors, setErrors } = useFormErrors();
 
-  function handlePlaceLinkInputChange(e) {
-    setPlaceLink(e.target.value);
-  }
+  // const [placeName, setPlaceName] = React.useState("");
+  // const [placeLink, setPlaceLink] = React.useState("");
+
+  // function handlePlaceNameInputChange(e) {
+  //   setPlaceName(e.target.value);
+  // }
+
+  // function handlePlaceLinkInputChange(e) {
+  //   setPlaceLink(e.target.value);
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlace({
-      name: placeName,
-      link: placeLink,
+      name: values.placeName,
+      link: values.placeLink,
     });
   }
 
+  console.log(values);
+
   React.useEffect(() => {
-    setPlaceName("");
-    setPlaceLink("");
-  }, [isOpen]);
+    setValues({
+      placeName: '',
+      placeLink: ''
+    })
+    // setPlaceName("");
+    // setPlaceLink("");
+  }, [isOpen, setValues]);
 
   return (
     <PopupWithForm
@@ -39,26 +52,26 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     >
       <input
         type="text"
-        id="place-name"
+        id="placeName"
         className="popup__input popup-newcard__input popup-newcard__input_type_name form-input"
-        name="name"
+        name="placeName"
         placeholder="Название"
         minLength="2"
         maxLength="30"
         required
-        value={placeName}
-        onChange={handlePlaceNameInputChange}
+        value={values.placeName || ''}
+        onChange={handleChange}
       />
       <span className="popup__input popup__input_type_error place-name-error"></span>
       <input
         type="url"
-        id="link"
+        id="placeLink"
         className="popup__input popup-newcard__input popup-newcard__input_type_link form-input"
-        name="link"
+        name="placeLink"
         placeholder="Ссылка на картинку"
         required
-        value={placeLink}
-        onChange={handlePlaceLinkInputChange}
+        value={values.placeLink || ''}
+        onChange={handleChange}
       />
       <span className="popup__input popup__input_type_error link-error"></span>
     </PopupWithForm>
