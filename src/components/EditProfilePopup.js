@@ -3,24 +3,13 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "../hooks/useForm";
 import { validators } from "../utils/validators";
+import { useFormErrors } from "../hooks/useFormErrors";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const { values, handleChange, setValues } = useForm();
-
-  const [errors, setErrors] = React.useState({
-    name: {
-      required: true,
-      minLenght: true,
-      maxLength: true,
-    },
-    about: {
-      required: true,
-      minLenght: true,
-      maxLength: true,
-    },
-  });
+  const { errors, setErrors } = useFormErrors();
 
   const isUserNameInvalid = Object.values(errors.name).some(Boolean);
   const isUserAboutInvalid = Object.values(errors.about).some(Boolean);
