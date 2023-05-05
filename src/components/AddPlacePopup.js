@@ -29,7 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   }
 
   React.useEffect(() => {
-    setValues({
+    setValues({...values,
       placeName: "",
       placeLink: "",
     });
@@ -52,13 +52,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-    setErrors({
+    setErrors({...errors,
       placeName: placeNameValidationResult,
       placeLink: placeLinkValidationResult,
     });
   }, [values, setErrors]);
-
-  console.log(values.placeName);
 
   return (
     <PopupWithForm

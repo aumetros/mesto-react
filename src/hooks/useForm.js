@@ -6,6 +6,7 @@ export function useForm(
     about: "",
     placeName: "",
     placeLink: "",
+    avatarLink: "",
   }
 ) {
   const [values, setValues] = React.useState(inputValues);

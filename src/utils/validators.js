@@ -43,4 +43,15 @@ export const validators = {
       return !regex.test(value);
     },
   },
+  avatarLink: {
+    required: (value) => {
+      return value === "";
+    },
+    url: (value) => {
+      const regex = new RegExp(
+        "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?"
+      );
+      return !regex.test(value);
+    },
+  },
 };

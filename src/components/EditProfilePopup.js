@@ -32,7 +32,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   }
 
   React.useEffect(() => {
-    setValues({
+    setValues({...values,
       name: currentUser.name || "",
       about: currentUser.about || "",
     });
@@ -55,7 +55,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-    setErrors({
+    setErrors({...errors,
       name: userNameValidationResult,
       about: userAboutValidationResult,
     });

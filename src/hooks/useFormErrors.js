@@ -21,6 +21,10 @@ export function useFormErrors() {
       required: true,
       url: true,
     },
+    avatarLink: {
+      required: true,
+      url: true,
+    },
   });
 
   return { errors, setErrors };
