@@ -5,20 +5,20 @@ import { validators } from "../utils/validators";
 import { useFormErrors } from "../hooks/useFormErrors";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
-
   const { values, handleChange, setValues } = useForm();
   const { errors, setErrors } = useFormErrors();
 
-  // const [placeName, setPlaceName] = React.useState("");
-  // const [placeLink, setPlaceLink] = React.useState("");
+  const isPlaceNameInvalid = Object.values(errors.placeName).some(Boolean);
+  const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
+  const isFormInvalid = isPlaceNameInvalid || isPlaceLinkInvalid;
 
-  // function handlePlaceNameInputChange(e) {
-  //   setPlaceName(e.target.value);
-  // }
+  const placeNameErrorClassName = `popup__input popup__input_type_error ${
+    isPlaceNameInvalid && "popup__error_visible"
+  }`;
 
-  // function handlePlaceLinkInputChange(e) {
-  //   setPlaceLink(e.target.value);
-  // }
+  const placeLinkErrorClassName = `popup__input popup__input_type_error ${
+    isPlaceLinkInvalid && "popup__error_visible"
+  }`;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,13 +28,22 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }
 
+  // const [initialForm, setInitialForm] = React.useState(false);
+
+  // React.useEffect(() => {
+
+  //   if (isOpen) {
+  //     setInitialForm(true)
+  //   } else {
+  //     set
+  //   }
+  // }, [isOpen])
+
   React.useEffect(() => {
     setValues({
-      placeName: '',
-      placeLink: ''
-    })
-    // setPlaceName("");
-    // setPlaceLink("");
+      placeName: "",
+      placeLink: "",
+    });
   }, [isOpen, setValues]);
 
   React.useEffect(() => {
@@ -60,8 +69,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }, [values, setErrors]);
 
-  console.log(errors);
-
   return (
     <PopupWithForm
       title="Новое место"
@@ -72,31 +79,35 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       onSubmit={handleSubmit}
       isLoading={isLoading}
       onEsc={onEsc}
+      isInvalid={isFormInvalid}
     >
       <input
         type="text"
         id="placeName"
-        className="popup__input popup-newcard__input popup-newcard__input_type_name form-input"
+        className="popup__input popup-newcard__input"
         name="placeName"
         placeholder="Название"
-        minLength="2"
-        maxLength="30"
-        required
-        value={values.placeName || ''}
+        value={values.placeName}
         onChange={handleChange}
       />
-      <span className="popup__input popup__input_type_error place-name-error"></span>
+      <span className={placeNameErrorClassName}>
+        {errors.placeName.required && errors.placeName.minLenght && "Заполните это поле."}
+        {!errors.placeName.required && errors.placeName.minLenght && "Текст должен быть не короче 2 симв."}
+        {errors.placeName.maxLength && "Текст должен быть не длинее 30 симв."}
+      </span>
       <input
         type="url"
         id="placeLink"
-        className="popup__input popup-newcard__input popup-newcard__input_type_link form-input"
+        className="popup__input popup-newcard__input"
         name="placeLink"
         placeholder="Ссылка на картинку"
-        required
-        value={values.placeLink || ''}
+        value={values.placeLink}
         onChange={handleChange}
       />
-      <span className="popup__input popup__input_type_error link-error"></span>
+      <span className={placeLinkErrorClassName}>
+      {errors.placeLink.required && errors.placeLink.url && "Заполните это поле."}
+      {!errors.placeLink.required && errors.placeLink.url && 'Введите URL.'}
+      </span>
     </PopupWithForm>
   );
 }
