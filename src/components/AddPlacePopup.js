@@ -28,17 +28,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }
 
-  // const [initialForm, setInitialForm] = React.useState(false);
-
-  // React.useEffect(() => {
-
-  //   if (isOpen) {
-  //     setInitialForm(true)
-  //   } else {
-  //     set
-  //   }
-  // }, [isOpen])
-
   React.useEffect(() => {
     setValues({
       placeName: "",
@@ -68,6 +57,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       placeLink: placeLinkValidationResult,
     });
   }, [values, setErrors]);
+
+  console.log(values.placeName);
 
   return (
     <PopupWithForm
