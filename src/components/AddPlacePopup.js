@@ -28,8 +28,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }
 
-  console.log(values);
-
   React.useEffect(() => {
     setValues({
       placeName: '',
@@ -38,6 +36,31 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     // setPlaceName("");
     // setPlaceLink("");
   }, [isOpen, setValues]);
+
+  React.useEffect(() => {
+    const { placeName, placeLink } = values;
+
+    const placeNameValidationResult = Object.keys(validators.placeName)
+      .map((errorKey) => {
+        const errorResult = validators.placeName[errorKey](placeName);
+        return { [errorKey]: errorResult };
+      })
+      .reduce((acc, el) => ({ ...acc, ...el }), {});
+
+    const placeLinkValidationResult = Object.keys(validators.placeLink)
+      .map((errorKey) => {
+        const errorResult = validators.placeLink[errorKey](placeLink);
+        return { [errorKey]: errorResult };
+      })
+      .reduce((acc, el) => ({ ...acc, ...el }), {});
+
+    setErrors({
+      placeName: placeNameValidationResult,
+      placeLink: placeLinkValidationResult,
+    });
+  }, [values, setErrors]);
+
+  console.log(errors);
 
   return (
     <PopupWithForm
