@@ -17,8 +17,10 @@ function EditAvatarPopup({
   const isAvatarLinkInvalid = Object.values(errors.avatarLink).some(Boolean);
   const isFormInvalid = isAvatarLinkInvalid;
 
+  const [visibilityValidate, setVisibilityValidate] = React.useState(false);
+
   const avatarLinkErrorClassName = `popup__input popup__input_type_error ${
-    isAvatarLinkInvalid && "popup__error_visible"
+    visibilityValidate && isAvatarLinkInvalid && "popup__error_visible"
   }`;
 
   function handleSubmit(e) {
@@ -26,8 +28,29 @@ function EditAvatarPopup({
     onUpdateAvatar(values.avatarLink);
   }
 
+  function handleChangeInput(e) {
+    handleChange(e);
+    setVisibilityValidate(true);
+  }
+
+  function showAvatarLinkErrors() {
+    if (visibilityValidate) {
+      return (
+        <>
+          {errors.avatarLink.required &&
+            errors.avatarLink.url &&
+            "Заполните это поле."}
+          {!errors.avatarLink.required &&
+            errors.avatarLink.url &&
+            "Введите URL."}
+        </>
+      );
+    }
+  }
+
   React.useEffect(() => {
     setValues({ ...values, avatarLink: "" });
+    setVisibilityValidate(false);
   }, [isOpen, setValues]);
 
   React.useEffect(() => {
@@ -62,12 +85,9 @@ function EditAvatarPopup({
         name="avatarLink"
         placeholder="Введите cсылку на новый аватар"
         value={values.avatarLink}
-        onChange={handleChange}
+        onChange={handleChangeInput}
       />
-      <span className={avatarLinkErrorClassName}>
-        {errors.avatarLink.required && errors.avatarLink.url && "Заполните это поле."}
-      {!errors.avatarLink.required && errors.avatarLink.url && 'Введите URL.'}
-      </span>
+      <span className={avatarLinkErrorClassName}>{showAvatarLinkErrors()}</span>
     </PopupWithForm>
   );
 }

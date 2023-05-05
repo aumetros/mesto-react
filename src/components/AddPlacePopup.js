@@ -12,12 +12,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
   const isFormInvalid = isPlaceNameInvalid || isPlaceLinkInvalid;
 
+  const [visibilityValidate, setVisibilityValidate] = React.useState({placeName: false, placeLink: false});
+
   const placeNameErrorClassName = `popup__input popup__input_type_error ${
-    isPlaceNameInvalid && "popup__error_visible"
+    visibilityValidate.placeName && isPlaceNameInvalid && "popup__error_visible"
   }`;
 
   const placeLinkErrorClassName = `popup__input popup__input_type_error ${
-    isPlaceLinkInvalid && "popup__error_visible"
+    visibilityValidate.placeLink && isPlaceLinkInvalid && "popup__error_visible"
   }`;
 
   function handleSubmit(e) {
@@ -28,12 +30,44 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }
 
+  function handleChangeInput(e) {
+    handleChange(e);
+    setVisibilityValidate({...visibilityValidate, [e.target.name]: true});
+  }
+
+  function showPlaceNameErrors() {
+    if (visibilityValidate.placeName) {
+      return (
+        <>
+          {errors.placeName.required &&
+            errors.placeName.minLenght &&
+            "Заполните это поле."}
+          {!errors.placeName.required &&
+            errors.placeName.minLenght &&
+            "Текст должен быть не короче 2 симв."}
+          {errors.placeName.maxLength && "Текст должен быть не длинее 30 симв."}
+        </>
+      );
+    }
+  }
+
+  function showPlaceLinkErrors() {
+    if (visibilityValidate.placeLink) {
+      return (
+        <>
+          {errors.placeLink.required &&
+            errors.placeLink.url &&
+            "Заполните это поле."}
+          {!errors.placeLink.required && errors.placeLink.url && "Введите URL."}
+        </>
+      );
+    }
+  }
+
   React.useEffect(() => {
-    setValues({...values,
-      placeName: "",
-      placeLink: "",
-    });
-  }, [isOpen, setValues]);
+    setValues({ ...values, placeName: "", placeLink: "" });
+    setVisibilityValidate({placeName: false, placeLink: false});
+  }, [isOpen, setValues, setVisibilityValidate]);
 
   React.useEffect(() => {
     const { placeName, placeLink } = values;
@@ -52,7 +86,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-    setErrors({...errors,
+    setErrors({
+      ...errors,
       placeName: placeNameValidationResult,
       placeLink: placeLinkValidationResult,
     });
@@ -77,13 +112,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         name="placeName"
         placeholder="Название"
         value={values.placeName}
-        onChange={handleChange}
+        onChange={handleChangeInput}
       />
-      <span className={placeNameErrorClassName}>
-        {errors.placeName.required && errors.placeName.minLenght && "Заполните это поле."}
-        {!errors.placeName.required && errors.placeName.minLenght && "Текст должен быть не короче 2 симв."}
-        {errors.placeName.maxLength && "Текст должен быть не длинее 30 симв."}
-      </span>
+      <span className={placeNameErrorClassName}>{showPlaceNameErrors()}</span>
       <input
         type="url"
         id="placeLink"
@@ -91,12 +122,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         name="placeLink"
         placeholder="Ссылка на картинку"
         value={values.placeLink}
-        onChange={handleChange}
+        onChange={handleChangeInput}
       />
-      <span className={placeLinkErrorClassName}>
-      {errors.placeLink.required && errors.placeLink.url && "Заполните это поле."}
-      {!errors.placeLink.required && errors.placeLink.url && 'Введите URL.'}
-      </span>
+      <span className={placeLinkErrorClassName}>{showPlaceLinkErrors()}</span>
     </PopupWithForm>
   );
 }
