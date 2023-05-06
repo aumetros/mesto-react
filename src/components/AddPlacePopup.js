@@ -111,7 +111,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       name="newcard"
       isOpen={isOpen}
       onClose={onClose}
-      isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       onEsc={onEsc}

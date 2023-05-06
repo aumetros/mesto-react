@@ -77,7 +77,6 @@ function EditAvatarPopup({
       name="edit-avatar"
       isOpen={isOpen}
       onClose={onClose}
-      isDisabled={false}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       onEsc={onEsc}
