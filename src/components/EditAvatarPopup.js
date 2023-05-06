@@ -2,7 +2,6 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
 import { validators } from "../utils/validators";
-import { useFormErrors } from "../hooks/useFormErrors";
 
 function EditAvatarPopup({
   isOpen,
@@ -12,7 +11,13 @@ function EditAvatarPopup({
   onEsc,
 }) {
   const { values, handleChange, setValues } = useForm();
-  const { errors, setErrors } = useFormErrors();
+
+  const [errors, setErrors] = React.useState({
+    avatarLink: {
+      required: true,
+      url: true,
+    },
+  });
 
   const isAvatarLinkInvalid = Object.values(errors.avatarLink).some(Boolean);
   const isFormInvalid = isAvatarLinkInvalid;
@@ -49,7 +54,7 @@ function EditAvatarPopup({
   }
 
   React.useEffect(() => {
-    setValues({ ...values, avatarLink: "" });
+    setValues({ avatarLink: "" });
     setVisibilityValidate(false);
   }, [isOpen, setValues]);
 
@@ -63,7 +68,7 @@ function EditAvatarPopup({
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-    setErrors({ ...errors, avatarLink: avatarLinkValidationResult });
+    setErrors({ avatarLink: avatarLinkValidationResult });
   }, [values, setErrors]);
 
   return (

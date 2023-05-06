@@ -3,13 +3,24 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "../hooks/useForm";
 import { validators } from "../utils/validators";
-import { useFormErrors } from "../hooks/useFormErrors";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const { values, handleChange, setValues } = useForm();
-  const { errors, setErrors } = useFormErrors();
+
+  const [errors, setErrors] = React.useState({
+    name: {
+      required: true,
+      minLenght: true,
+      maxLength: true,
+    },
+    about: {
+      required: true,
+      minLenght: true,
+      maxLength: true,
+    },
+  });
 
   const isUserNameInvalid = Object.values(errors.name).some(Boolean);
   const isUserAboutInvalid = Object.values(errors.about).some(Boolean);
@@ -32,7 +43,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   }
 
   React.useEffect(() => {
-    setValues({...values,
+    setValues({
       name: currentUser.name || "",
       about: currentUser.about || "",
     });
@@ -55,7 +66,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-    setErrors({...errors,
+    setErrors({
       name: userNameValidationResult,
       about: userAboutValidationResult,
     });
@@ -77,14 +88,16 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
         id="name-input"
         className="popup__input popup-profile__input"
         name="name"
-        placeholder="Введите своё имя"       
+        placeholder="Введите своё имя"
         value={values.name || ""}
         onChange={handleChange}
       />
       <span className={userNameErrorClassName}>
         {errors.name.required && errors.name.minLenght && "Заполните это поле."}
-        {!errors.name.required && errors.name.minLenght && 'Текст должен быть не короче 2 симв.'}
-        {errors.name.maxLength && 'Текст должен быть не длинее 40 симв.'}
+        {!errors.name.required &&
+          errors.name.minLenght &&
+          "Текст должен быть не короче 2 симв."}
+        {errors.name.maxLength && "Текст должен быть не длинее 40 симв."}
       </span>
       <input
         type="text"
@@ -96,9 +109,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
         onChange={handleChange}
       />
       <span className={userAboutErrorClassName}>
-        {errors.about.required && errors.about.minLenght && "Заполните это поле."}
-        {!errors.about.required && errors.about.minLenght && 'Текст должен быть не короче 2 симв.'}
-        {errors.about.maxLength && 'Текст должен быть не длинее 200 симв.'}
+        {errors.about.required &&
+          errors.about.minLenght &&
+          "Заполните это поле."}
+        {!errors.about.required &&
+          errors.about.minLenght &&
+          "Текст должен быть не короче 2 симв."}
+        {errors.about.maxLength && "Текст должен быть не длинее 200 симв."}
       </span>
     </PopupWithForm>
   );

@@ -2,17 +2,30 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
 import { validators } from "../utils/validators";
-import { useFormErrors } from "../hooks/useFormErrors";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
-  const { errors, setErrors } = useFormErrors();
+
+  const [errors, setErrors] = React.useState({
+    placeName: {
+      required: true,
+      minLenght: true,
+      maxLength: true,
+    },
+    placeLink: {
+      required: true,
+      url: true,
+    },
+  });
 
   const isPlaceNameInvalid = Object.values(errors.placeName).some(Boolean);
   const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
   const isFormInvalid = isPlaceNameInvalid || isPlaceLinkInvalid;
 
-  const [visibilityValidate, setVisibilityValidate] = React.useState({placeName: false, placeLink: false});
+  const [visibilityValidate, setVisibilityValidate] = React.useState({
+    placeName: false,
+    placeLink: false,
+  });
 
   const placeNameErrorClassName = `popup__input popup__input_type_error ${
     visibilityValidate.placeName && isPlaceNameInvalid && "popup__error_visible"
@@ -32,7 +45,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
 
   function handleChangeInput(e) {
     handleChange(e);
-    setVisibilityValidate({...visibilityValidate, [e.target.name]: true});
+    setVisibilityValidate({ ...visibilityValidate, [e.target.name]: true });
   }
 
   function showPlaceNameErrors() {
@@ -65,8 +78,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   }
 
   React.useEffect(() => {
-    setValues({ ...values, placeName: "", placeLink: "" });
-    setVisibilityValidate({placeName: false, placeLink: false});
+    setValues({ placeName: "", placeLink: "" });
+    setVisibilityValidate({ placeName: false, placeLink: false });
   }, [isOpen, setValues, setVisibilityValidate]);
 
   React.useEffect(() => {
@@ -87,7 +100,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
     setErrors({
-      ...errors,
       placeName: placeNameValidationResult,
       placeLink: placeLinkValidationResult,
     });
