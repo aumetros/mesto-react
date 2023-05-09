@@ -98,7 +98,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         className="popup__input popup-newcard__input"
         name="placeName"
         placeholder="Название"
-        value={values.placeName}
+        value={values.placeName || ''}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />
@@ -109,7 +109,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         className="popup__input popup-newcard__input"
         name="placeLink"
         placeholder="Ссылка на картинку"
-        value={values.placeLink}
+        value={values.placeLink || ''}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />

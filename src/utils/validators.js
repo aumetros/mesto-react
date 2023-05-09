@@ -3,10 +3,10 @@ export const validators = {
     required: (value) => {
       return value === "";
     },
-    minLenght: (value) => {
+    minLenght: (value = "") => {
       return value.length < 2;
     },
-    maxLength: (value) => {
+    maxLength: (value = "") => {
       return value.length > 200;
     },
   },
@@ -14,10 +14,10 @@ export const validators = {
     required: (value) => {
       return value === "";
     },
-    minLenght: (value) => {
+    minLenght: (value = "") => {
       return value.length < 2;
     },
-    maxLength: (value) => {
+    maxLength: (value = "") => {
       return value.length > 200;
     },
   },
@@ -25,10 +25,10 @@ export const validators = {
     required: (value) => {
       return value === "";
     },
-    minLenght: (value) => {
+    minLenght: (value = "") => {
       return value.length < 2;
     },
-    maxLength: (value) => {
+    maxLength: (value = "") => {
       return value.length > 30;
     },
   },

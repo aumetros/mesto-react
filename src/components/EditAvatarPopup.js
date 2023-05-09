@@ -74,7 +74,7 @@ function EditAvatarPopup({
         className="popup__input popup-edit-avatar__input"
         name="avatarLink"
         placeholder="Введите cсылку на новый аватар"
-        value={values.avatarLink}
+        value={values.avatarLink || ''}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />
