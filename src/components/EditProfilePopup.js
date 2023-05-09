@@ -70,9 +70,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
       />
       <span className={userNameErrorClassName}>
         {errors.name.required && errors.name.minLenght && "Заполните это поле."}
-        {!errors.name.required &&
-          errors.name.minLenght &&
-          "Текст должен быть не короче 2 симв."}
+        {!errors.name.required && errors.name.minLenght && "Текст должен быть не короче 2 симв."}
         {errors.name.maxLength && "Текст должен быть не длинее 40 симв."}
       </span>
       <input
@@ -85,12 +83,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
         onChange={handleChange}
       />
       <span className={userAboutErrorClassName}>
-        {errors.about.required &&
-          errors.about.minLenght &&
-          "Заполните это поле."}
-        {!errors.about.required &&
-          errors.about.minLenght &&
-          "Текст должен быть не короче 2 симв."}
+        {errors.about.required && errors.about.minLenght && "Заполните это поле."}
+        {!errors.about.required && errors.about.minLenght && "Текст должен быть не короче 2 симв."}
         {errors.about.maxLength && "Текст должен быть не длинее 200 симв."}
       </span>
     </PopupWithForm>

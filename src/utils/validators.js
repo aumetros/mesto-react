@@ -7,7 +7,7 @@ export const validators = {
       return value.length < 2;
     },
     maxLength: (value = "") => {
-      return value.length > 200;
+      return value.length > 40;
     },
   },
   about: {

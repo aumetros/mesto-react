@@ -4,19 +4,10 @@ import { useForm } from "../hooks/useForm";
 import { useValidation } from "../hooks/useValidation";
 import { useFormErrors } from "../hooks/useFormErrors";
 
-function EditAvatarPopup({
-  isOpen,
-  onClose,
-  onUpdateAvatar,
-  isLoading,
-  onEsc,
-}) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
   const { errors, setErrors } = useFormErrors();
-  const avatarLinkValidationResult = useValidation(
-    values.avatarLink,
-    "avatarLink"
-  );
+  const avatarLinkValidationResult = useValidation(values.avatarLink, "avatarLink");
 
   const [visibilityValidate, setVisibilityValidate] = React.useState(false);
 
@@ -40,12 +31,8 @@ function EditAvatarPopup({
     if (visibilityValidate) {
       return (
         <>
-          {errors.avatarLink.required &&
-            errors.avatarLink.url &&
-            "Заполните это поле."}
-          {!errors.avatarLink.required &&
-            errors.avatarLink.url &&
-            "Введите URL."}
+          {errors.avatarLink.required && errors.avatarLink.url && "Заполните это поле."}
+          {!errors.avatarLink.required && errors.avatarLink.url && "Введите URL."}
         </>
       );
     }

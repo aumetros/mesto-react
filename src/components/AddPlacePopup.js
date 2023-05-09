@@ -8,14 +8,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
   const { errors, setErrors } = useFormErrors();
 
-  const placeNameValidationResult = useValidation(
-    values.placeName,
-    "placeName"
-  );
-  const placeLinkValidationResult = useValidation(
-    values.placeLink,
-    "placeLink"
-  );
+  const placeNameValidationResult = useValidation(values.placeName, "placeName");
+  const placeLinkValidationResult = useValidation(values.placeLink, "placeLink");
 
   const isPlaceNameInvalid = Object.values(errors.placeName).some(Boolean);
   const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
@@ -50,12 +44,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     if (visibilityValidate.placeName) {
       return (
         <>
-          {errors.placeName.required &&
-            errors.placeName.minLenght &&
-            "Заполните это поле."}
-          {!errors.placeName.required &&
-            errors.placeName.minLenght &&
-            "Текст должен быть не короче 2 симв."}
+          {errors.placeName.required && errors.placeName.minLenght && "Заполните это поле."}
+          {!errors.placeName.required && errors.placeName.minLenght && "Текст должен быть не короче 2 симв."}
           {errors.placeName.maxLength && "Текст должен быть не длинее 30 симв."}
         </>
       );
@@ -66,9 +56,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     if (visibilityValidate.placeLink) {
       return (
         <>
-          {errors.placeLink.required &&
-            errors.placeLink.url &&
-            "Заполните это поле."}
+          {errors.placeLink.required && errors.placeLink.url && "Заполните это поле."}
           {!errors.placeLink.required && errors.placeLink.url && "Введите URL."}
         </>
       );
