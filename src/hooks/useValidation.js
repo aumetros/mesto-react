@@ -3,7 +3,7 @@ import { validators } from "../utils/validators";
 
 export function useValidation(value, key) {
 
-  const [validationResult, setvalidationResult] = React.useState({});
+  const [validationResult, setValidationResult] = React.useState({});
 
   React.useEffect(() => {
     const result = Object.keys(validators[key])
@@ -13,9 +13,9 @@ export function useValidation(value, key) {
       })
       .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-      setvalidationResult(result)
+      setValidationResult(result)
 
-  }, [value, key, setvalidationResult]);
+  }, [value, key, setValidationResult]);
 
   return validationResult;
 }
