@@ -2,23 +2,14 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
 import { useValidation } from "../hooks/useValidation";
+import { useFormErrors } from "../hooks/useFormErrors";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
-  const placeNameValidationResult = useValidation(values.placeName, 'placeName');
-  const placeLinkValidationResult = useValidation(values.placeLink, 'placeLink');
+  const {errors, setErrors} = useFormErrors();
 
-  const [errors, setErrors] = React.useState({
-    placeName: {
-      required: true,
-      minLenght: true,
-      maxLength: true,
-    },
-    placeLink: {
-      required: true,
-      url: true,
-    },
-  });
+  const placeNameValidationResult = useValidation(values.placeName, 'placeName');
+  const placeLinkValidationResult = useValidation(values.placeLink, 'placeLink');  
 
   const isPlaceNameInvalid = Object.values(errors.placeName).some(Boolean);
   const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
