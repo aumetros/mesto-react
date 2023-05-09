@@ -6,10 +6,16 @@ import { useFormErrors } from "../hooks/useFormErrors";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
-  const {errors, setErrors} = useFormErrors();
+  const { errors, setErrors } = useFormErrors();
 
-  const placeNameValidationResult = useValidation(values.placeName, 'placeName');
-  const placeLinkValidationResult = useValidation(values.placeLink, 'placeLink');  
+  const placeNameValidationResult = useValidation(
+    values.placeName,
+    "placeName"
+  );
+  const placeLinkValidationResult = useValidation(
+    values.placeLink,
+    "placeLink"
+  );
 
   const isPlaceNameInvalid = Object.values(errors.placeName).some(Boolean);
   const isPlaceLinkInvalid = Object.values(errors.placeLink).some(Boolean);
@@ -37,7 +43,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   }
 
   function handleFocusInput(e) {
-    setVisibilityValidate({ ...visibilityValidate, [e.target.name]: true });    
+    setVisibilityValidate({ ...visibilityValidate, [e.target.name]: true });
   }
 
   function showPlaceNameErrors() {
@@ -72,7 +78,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   React.useEffect(() => {
     setValues({ placeName: "", placeLink: "" });
     setVisibilityValidate({ placeName: false, placeLink: false });
-  }, [isOpen, setValues, setVisibilityValidate]);  
+  }, [isOpen, setValues, setVisibilityValidate]);
 
   React.useEffect(() => {
     setErrors({
@@ -98,7 +104,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         className="popup__input popup-newcard__input"
         name="placeName"
         placeholder="Название"
-        value={values.placeName || ''}
+        value={values.placeName || ""}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />
@@ -109,7 +115,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         className="popup__input popup-newcard__input"
         name="placeLink"
         placeholder="Ссылка на картинку"
-        value={values.placeLink || ''}
+        value={values.placeLink || ""}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />

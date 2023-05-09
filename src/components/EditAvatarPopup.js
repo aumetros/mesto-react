@@ -12,9 +12,12 @@ function EditAvatarPopup({
   onEsc,
 }) {
   const { values, handleChange, setValues } = useForm();
-  const {errors, setErrors} = useFormErrors();
-  const avatarLinkValidationResult = useValidation(values.avatarLink, "avatarLink");
-  
+  const { errors, setErrors } = useFormErrors();
+  const avatarLinkValidationResult = useValidation(
+    values.avatarLink,
+    "avatarLink"
+  );
+
   const [visibilityValidate, setVisibilityValidate] = React.useState(false);
 
   const isAvatarLinkInvalid = Object.values(errors.avatarLink).some(Boolean);
@@ -74,7 +77,7 @@ function EditAvatarPopup({
         className="popup__input popup-edit-avatar__input"
         name="avatarLink"
         placeholder="Введите cсылку на новый аватар"
-        value={values.avatarLink || ''}
+        value={values.avatarLink || ""}
         onChange={handleChange}
         onFocus={handleFocusInput}
       />

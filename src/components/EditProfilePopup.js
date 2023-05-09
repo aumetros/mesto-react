@@ -9,10 +9,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const { values, handleChange, setValues } = useForm();
-  const {errors, setErrors} = useFormErrors();
+  const { errors, setErrors } = useFormErrors();
 
-  const userNameValidationResult = useValidation(values.name, 'name');
-  const userAboutValidationResult = useValidation(values.about, 'about');  
+  const userNameValidationResult = useValidation(values.name, "name");
+  const userAboutValidationResult = useValidation(values.about, "about");
 
   const isUserNameInvalid = Object.values(errors.name).some(Boolean);
   const isUserAboutInvalid = Object.values(errors.about).some(Boolean);
