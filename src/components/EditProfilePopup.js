@@ -2,12 +2,14 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "../hooks/useForm";
-import { validators } from "../utils/validators";
+import { useValidation } from "../hooks/useValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const { values, handleChange, setValues } = useForm();
+  const userNameValidationResult = useValidation(values.name, 'name');
+  const userAboutValidationResult = useValidation(values.about, 'about');
 
   const [errors, setErrors] = React.useState({
     name: {
@@ -50,27 +52,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, onEsc }) {
   }, [currentUser, isOpen, setValues]);
 
   React.useEffect(() => {
-    const { name, about } = values;
-
-    const userNameValidationResult = Object.keys(validators.name)
-      .map((errorKey) => {
-        const errorResult = validators.name[errorKey](name);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, el) => ({ ...acc, ...el }), {});
-
-    const userAboutValidationResult = Object.keys(validators.about)
-      .map((errorKey) => {
-        const errorResult = validators.about[errorKey](about);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, el) => ({ ...acc, ...el }), {});
-
     setErrors({
       name: userNameValidationResult,
       about: userAboutValidationResult,
     });
-  }, [values, setErrors]);
+  }, [userNameValidationResult, userAboutValidationResult, setErrors]);
 
   return (
     <PopupWithForm

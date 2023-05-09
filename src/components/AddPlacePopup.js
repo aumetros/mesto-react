@@ -1,10 +1,12 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
-import { validators } from "../utils/validators";
+import { useValidation } from "../hooks/useValidation";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   const { values, handleChange, setValues } = useForm();
+  const placeNameValidationResult = useValidation(values.placeName, 'placeName');
+  const placeLinkValidationResult = useValidation(values.placeLink, 'placeLink');
 
   const [errors, setErrors] = React.useState({
     placeName: {
@@ -80,30 +82,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
   React.useEffect(() => {
     setValues({ placeName: "", placeLink: "" });
     setVisibilityValidate({ placeName: false, placeLink: false });
-  }, [isOpen, setValues, setVisibilityValidate]);
+  }, [isOpen, setValues, setVisibilityValidate]);  
 
   React.useEffect(() => {
-    const { placeName, placeLink } = values;
-
-    const placeNameValidationResult = Object.keys(validators.placeName)
-      .map((errorKey) => {
-        const errorResult = validators.placeName[errorKey](placeName);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, el) => ({ ...acc, ...el }), {});
-
-    const placeLinkValidationResult = Object.keys(validators.placeLink)
-      .map((errorKey) => {
-        const errorResult = validators.placeLink[errorKey](placeLink);
-        return { [errorKey]: errorResult };
-      })
-      .reduce((acc, el) => ({ ...acc, ...el }), {});
-
     setErrors({
       placeName: placeNameValidationResult,
       placeLink: placeLinkValidationResult,
     });
-  }, [values, setErrors]);
+  }, [placeNameValidationResult, placeLinkValidationResult, setErrors]);
 
   return (
     <PopupWithForm
