@@ -45,9 +45,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
     });
   }
 
-  function handleChangeInput(e) {
-    handleChange(e);
-    setVisibilityValidate({ ...visibilityValidate, [e.target.name]: true });
+  function handleFocusInput(e) {
+    setVisibilityValidate({ ...visibilityValidate, [e.target.name]: true });    
   }
 
   function showPlaceNameErrors() {
@@ -109,7 +108,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         name="placeName"
         placeholder="Название"
         value={values.placeName}
-        onChange={handleChangeInput}
+        onChange={handleChange}
+        onFocus={handleFocusInput}
       />
       <span className={placeNameErrorClassName}>{showPlaceNameErrors()}</span>
       <input
@@ -119,7 +119,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, onEsc }) {
         name="placeLink"
         placeholder="Ссылка на картинку"
         value={values.placeLink}
-        onChange={handleChangeInput}
+        onChange={handleChange}
+        onFocus={handleFocusInput}
       />
       <span className={placeLinkErrorClassName}>{showPlaceLinkErrors()}</span>
     </PopupWithForm>

@@ -11,7 +11,7 @@ function EditAvatarPopup({
   onEsc,
 }) {
   const { values, handleChange, setValues } = useForm();
-  const avatarLinkValidationResult = useValidation(values.avatarLink, 'avatarLink' );
+  const avatarLinkValidationResult = useValidation(values.avatarLink, "avatarLink");
 
   const [errors, setErrors] = React.useState({
     avatarLink: {
@@ -34,8 +34,7 @@ function EditAvatarPopup({
     onUpdateAvatar(values.avatarLink);
   }
 
-  function handleChangeInput(e) {
-    handleChange(e);
+  function handleFocusInput() {
     setVisibilityValidate(true);
   }
 
@@ -57,7 +56,7 @@ function EditAvatarPopup({
   React.useEffect(() => {
     setValues({ avatarLink: "" });
     setVisibilityValidate(false);
-  }, [isOpen, setValues]); 
+  }, [isOpen, setValues]);
 
   React.useEffect(() => {
     setErrors({ avatarLink: avatarLinkValidationResult });
@@ -81,7 +80,8 @@ function EditAvatarPopup({
         name="avatarLink"
         placeholder="Введите cсылку на новый аватар"
         value={values.avatarLink}
-        onChange={handleChangeInput}
+        onChange={handleChange}
+        onFocus={handleFocusInput}
       />
       <span className={avatarLinkErrorClassName}>{showAvatarLinkErrors()}</span>
     </PopupWithForm>
